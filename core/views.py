@@ -39,6 +39,13 @@ def _is_doctor_or_admin(user):
     )
 
 
+def _is_non_payment_staff(user):
+    return user.is_authenticated and (
+        user.is_superuser
+        or user.groups.filter(name__in=["Admin", "Receptionist", "Doctor"]).exists()
+    )
+
+
 def role_required(check_fn):
     def decorator(view_func):
         @login_required
@@ -124,13 +131,13 @@ def search(request):
     return render(request, "core/search_results.html", {"query": query, "patients": patients})
 
 
-@role_required(_is_reception_or_admin)
+@role_required(_is_non_payment_staff)
 def patient_list(request):
     patients = Patient.objects.all()
     return render(request, "core/patient_list.html", {"patients": patients})
 
 
-@role_required(_is_reception_or_admin)
+@role_required(_is_non_payment_staff)
 def patient_create(request):
     form = PatientForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
@@ -152,7 +159,7 @@ def patient_detail(request, pk):
     )
 
 
-@role_required(_is_admin_or_super)
+@role_required(_is_non_payment_staff)
 def doctor_list(request):
     doctors = Doctor.objects.all()
     return render(request, "core/doctor_list.html", {"doctors": doctors})
@@ -168,13 +175,13 @@ def doctor_create(request):
     return render(request, "core/form_page.html", {"title": "Register Doctor", "form": form})
 
 
-@role_required(_is_reception_or_admin)
+@role_required(_is_non_payment_staff)
 def visit_list(request):
     visits = Visit.objects.select_related("patient", "doctor")
     return render(request, "core/visit_list.html", {"visits": visits})
 
 
-@role_required(_is_reception_or_admin)
+@role_required(_is_non_payment_staff)
 def visit_create(request):
     initial = {}
     patient_id = request.GET.get("patient")

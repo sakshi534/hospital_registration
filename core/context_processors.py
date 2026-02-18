@@ -16,4 +16,5 @@ def role_flags(request):
         "is_admin_user": is_admin,
         "is_reception_user": is_reception,
         "is_doctor_user": is_doctor,
+        "is_non_payment_staff_user": is_reception or is_doctor,
     }
