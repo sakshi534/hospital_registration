@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Hospital Registration{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <h1><a href="{% url 'dashboard' %}">Hospital Registration</a></h1>
+            {% if user.is_authenticated %}
+                <div class="topbar-actions">
+                    <span class="muted">Logged in as {{ user.username }}</span>
+                    <a class="btn btn-small" href="{% url 'logout' %}">Logout</a>
+                </div>
+            {% endif %}
+        </div>
+    </header>
+
+    {% if user.is_authenticated %}
+        <nav class="nav">
+            <div class="container nav-links">
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <a href="{% url 'patient_list' %}">Patients</a>
+                <a href="{% url 'doctor_list' %}">Doctors</a>
+                <a href="{% url 'visit_list' %}">Visits</a>
+                <a href="{% url 'payment_list' %}">Payments</a>
+                <a href="{% url 'search' %}">Search</a>
+            </div>
+        </nav>
+    {% endif %}
+
+    <main class="container page-content">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

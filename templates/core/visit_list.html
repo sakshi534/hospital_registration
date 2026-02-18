@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Visits | Hospital Registration{% endblock %}
+
+{% block content %}
+<div class="flex-header">
+    <h2>Patient Visits</h2>
+    <a href="{% url 'visit_create' %}" class="btn">+ Record Visit</a>
+</div>
+<div class="card">
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Reason</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for visit in visits %}
+                <tr>
+                    <td>{{ visit.visit_date }}</td>
+                    <td>{{ visit.patient.patient_id }} - {{ visit.patient.first_name }} {{ visit.patient.last_name }}</td>
+                    <td>Dr. {{ visit.doctor.first_name }} {{ visit.doctor.last_name }}</td>
+                    <td>{{ visit.reason }}</td>
+                    <td><a href="{% url 'visit_detail' visit.pk %}">View</a></td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="5">No visits recorded yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

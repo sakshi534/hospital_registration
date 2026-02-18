@@ -1,0 +1,43 @@
+from django.urls import path
+
+from .views import (
+    UserLoginView,
+    dashboard,
+    doctor_create,
+    doctor_list,
+    logout_view,
+    patient_create,
+    patient_detail,
+    patient_list,
+    payment_create,
+    payment_list,
+    prescription_create,
+    procedure_create,
+    search,
+    signup_view,
+    health_check,
+    visit_create,
+    visit_detail,
+    visit_list,
+)
+
+urlpatterns = [
+    path("health/", health_check, name="health_check"),
+    path("", dashboard, name="dashboard"),
+    path("login/", UserLoginView.as_view(), name="login"),
+    path("signup/", signup_view, name="signup"),
+    path("logout/", logout_view, name="logout"),
+    path("search/", search, name="search"),
+    path("patients/", patient_list, name="patient_list"),
+    path("patients/new/", patient_create, name="patient_create"),
+    path("patients/<int:pk>/", patient_detail, name="patient_detail"),
+    path("doctors/", doctor_list, name="doctor_list"),
+    path("doctors/new/", doctor_create, name="doctor_create"),
+    path("visits/", visit_list, name="visit_list"),
+    path("visits/new/", visit_create, name="visit_create"),
+    path("visits/<int:pk>/", visit_detail, name="visit_detail"),
+    path("prescriptions/new/", prescription_create, name="prescription_create"),
+    path("procedures/new/", procedure_create, name="procedure_create"),
+    path("payments/", payment_list, name="payment_list"),
+    path("payments/new/", payment_create, name="payment_create"),
+]

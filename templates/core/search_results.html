@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Search | Hospital Registration{% endblock %}
+
+{% block content %}
+<h2>Search Patients</h2>
+<div class="card">
+    <form method="get" class="search-form">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search by patient ID, name, phone, email" />
+        <button type="submit" class="btn">Search</button>
+    </form>
+</div>
+
+{% if query %}
+<div class="card">
+    <h3>Results for "{{ query }}"</h3>
+    <table>
+        <thead><tr><th>Patient ID</th><th>Name</th><th>Phone</th><th>Email</th><th></th></tr></thead>
+        <tbody>
+            {% for patient in patients %}
+                <tr>
+                    <td>{{ patient.patient_id }}</td>
+                    <td>{{ patient.first_name }} {{ patient.last_name }}</td>
+                    <td>{{ patient.phone }}</td>
+                    <td>{{ patient.email|default:"-" }}</td>
+                    <td><a href="{% url 'patient_detail' patient.pk %}">Open</a></td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="5">No matching patients found.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

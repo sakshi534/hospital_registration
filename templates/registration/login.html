@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Login | Hospital Registration{% endblock %}
+
+{% block content %}
+<div class="card auth-card">
+    <h2>Login</h2>
+    <p class="muted">Use your staff account to access the hospital system.</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Sign In</button>
+    </form>
+    <p class="muted" style="margin-top: 12px;">
+        New user? <a href="{% url 'signup' %}">Create an account</a>
+    </p>
+</div>
+{% endblock %}

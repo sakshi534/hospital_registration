@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Details | Hospital Registration{% endblock %}
+
+{% block content %}
+<div class="flex-header">
+    <h2>Patient: {{ patient.first_name }} {{ patient.last_name }}</h2>
+    <a href="{% url 'visit_create' %}?patient={{ patient.id }}" class="btn">+ Add Visit</a>
+</div>
+
+<div class="card">
+    <p><strong>Patient ID:</strong> {{ patient.patient_id }}</p>
+    <p><strong>Phone:</strong> {{ patient.phone }}</p>
+    <p><strong>Email:</strong> {{ patient.email|default:"-" }}</p>
+    <p><strong>DOB:</strong> {{ patient.date_of_birth|default:"-" }}</p>
+    <p><strong>Blood Group:</strong> {{ patient.blood_group|default:"-" }}</p>
+    <p><strong>Address:</strong> {{ patient.address|default:"-" }}</p>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <h3>Visit History</h3>
+        <table>
+            <thead>
+                <tr><th>Date</th><th>Doctor</th><th>Reason</th><th></th></tr>
+            </thead>
+            <tbody>
+                {% for visit in visits %}
+                <tr>
+                    <td>{{ visit.visit_date }}</td>
+                    <td>Dr. {{ visit.doctor.first_name }} {{ visit.doctor.last_name }}</td>
+                    <td>{{ visit.reason }}</td>
+                    <td><a href="{% url 'visit_detail' visit.id %}">View</a></td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4">No visits yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card">
+        <h3>Payment History</h3>
+        <table>
+            <thead>
+                <tr><th>Date</th><th>Amount</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+                {% for payment in payments %}
+                <tr>
+                    <td>{{ payment.paid_on }}</td>
+                    <td>₹{{ payment.amount }}</td>
+                    <td>{{ payment.get_status_display }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="3">No payments yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

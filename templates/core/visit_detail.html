@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Visit Details | Hospital Registration{% endblock %}
+
+{% block content %}
+<div class="flex-header">
+    <h2>Visit #{{ visit.id }}</h2>
+    <div class="actions-row">
+        <a href="{% url 'prescription_create' %}?visit={{ visit.id }}" class="btn">+ Add Prescription</a>
+        <a href="{% url 'procedure_create' %}?visit={{ visit.id }}" class="btn">+ Add Procedure</a>
+    </div>
+</div>
+
+<div class="card">
+    <p><strong>Patient:</strong> <a href="{% url 'patient_detail' visit.patient.id %}">{{ visit.patient.patient_id }} - {{ visit.patient.first_name }} {{ visit.patient.last_name }}</a></p>
+    <p><strong>Doctor:</strong> Dr. {{ visit.doctor.first_name }} {{ visit.doctor.last_name }}</p>
+    <p><strong>Date:</strong> {{ visit.visit_date }}</p>
+    <p><strong>Reason:</strong> {{ visit.reason }}</p>
+    <p><strong>Diagnosis:</strong> {{ visit.diagnosis|default:"-" }}</p>
+    <p><strong>Notes:</strong> {{ visit.notes|default:"-" }}</p>
+</div>
+
+<div class="grid-2">
+    <div class="card">
+        <h3>Prescriptions</h3>
+        <table>
+            <thead>
+                <tr><th>Medicine</th><th>Dosage</th><th>Frequency</th><th>Duration</th></tr>
+            </thead>
+            <tbody>
+                {% for p in visit.prescriptions.all %}
+                <tr>
+                    <td>{{ p.medicine_name }}</td>
+                    <td>{{ p.dosage }}</td>
+                    <td>{{ p.frequency }}</td>
+                    <td>{{ p.duration }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4">No prescriptions added.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3>Procedures</h3>
+        <table>
+            <thead>
+                <tr><th>Procedure</th><th>Date</th><th>Outcome</th><th>Cost</th></tr>
+            </thead>
+            <tbody>
+                {% for p in visit.procedures.all %}
+                <tr>
+                    <td>{{ p.procedure_name }}</td>
+                    <td>{{ p.performed_on }}</td>
+                    <td>{{ p.outcome|default:"-" }}</td>
+                    <td>₹{{ p.cost }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="4">No procedures added.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
