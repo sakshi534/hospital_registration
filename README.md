@@ -58,7 +58,7 @@ Copy `.env.example` and set values in your host environment:
 - `ALLOWED_HOSTS` (comma-separated)
 - `DATABASE_URL` (for PostgreSQL in production)
 
-## 5) Production deployment on Render (recommended)
+## 5) Production deployment on Render + Paid Postgres (recommended)
 
 This project now includes `render.yaml` so you can deploy quickly using Render Blueprint.
 
@@ -71,7 +71,8 @@ This project now includes `render.yaml` so you can deploy quickly using Render B
 3. Render will detect `render.yaml` and create:
    - Web service (`hospital-registration-web`)
    - PostgreSQL database (`hospital-registration-db`)
-4. Approve and deploy.
+4. Ensure both are on **paid starter plans** (not free DB).
+5. Approve and deploy.
 
 ### C) Post-deploy one-time commands (Render Shell)
 Run:
@@ -79,6 +80,13 @@ Run:
 python manage.py seed_roles
 python manage.py createsuperuser
 ```
+
+### C.1) Smoke test after deploy
+Check these URLs:
+- `/health/` should return `{"status": "ok"}`
+- `/login/` loads
+- `/signup/` loads
+- Create one test patient and one test visit
 
 ### D) Health and access
 - Health endpoint: `/health/`
@@ -91,5 +99,9 @@ These are already modeled in `render.yaml`, but verify values in Render dashboar
 - `DATABASE_URL` (from Render Postgres)
 - `ALLOWED_HOSTS` (your Render domain)
 - `CSRF_TRUSTED_ORIGINS` (e.g. `https://your-domain.onrender.com`)
+
+### F) Cost expectation (paid DB path)
+- Web starter + paid Postgres starter generally lands around **$20–$35/month**.
+- This is the practical low-cost secure baseline for sensitive healthcare data.
 
 Now the app is productionized and can be accessed remotely from anywhere.
