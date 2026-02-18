@@ -81,6 +81,12 @@ python manage.py seed_roles
 python manage.py createsuperuser
 ```
 
+If you already have doctor users in auth but doctor dashboard/list count looks lower, run:
+```bash
+python manage.py sync_doctor_profiles
+```
+This command syncs any `Doctor`-group auth users into missing `Doctor` profiles.
+
 ### C.1) Smoke test after deploy
 Check these URLs:
 - `/health/` should return `{"status": "ok"}`
