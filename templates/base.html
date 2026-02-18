@@ -24,10 +24,14 @@
         <nav class="nav">
             <div class="container nav-links">
                 <a href="{% url 'dashboard' %}">Dashboard</a>
-                <a href="{% url 'patient_list' %}">Patients</a>
-                <a href="{% url 'doctor_list' %}">Doctors</a>
-                <a href="{% url 'visit_list' %}">Visits</a>
-                <a href="{% url 'payment_list' %}">Payments</a>
+                {% if is_reception_user %}
+                    <a href="{% url 'patient_list' %}">Patients</a>
+                    <a href="{% url 'visit_list' %}">Visits</a>
+                    <a href="{% url 'payment_list' %}">Payments</a>
+                {% endif %}
+                {% if is_admin_user %}
+                    <a href="{% url 'doctor_list' %}">Doctors</a>
+                {% endif %}
                 <a href="{% url 'search' %}">Search</a>
             </div>
         </nav>

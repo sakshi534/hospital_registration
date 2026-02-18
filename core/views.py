@@ -2,11 +2,13 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.models import Group
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.http import JsonResponse
+from functools import wraps
 
 from .forms import (
     DoctorForm,
@@ -37,6 +39,20 @@ def _is_doctor_or_admin(user):
     )
 
 
+def role_required(check_fn):
+    def decorator(view_func):
+        @login_required
+        @wraps(view_func)
+        def _wrapped(request, *args, **kwargs):
+            if not check_fn(request.user):
+                raise PermissionDenied("You do not have permission to access this page.")
+            return view_func(request, *args, **kwargs)
+
+        return _wrapped
+
+    return decorator
+
+
 class UserLoginView(LoginView):
     template_name = "registration/login.html"
 
@@ -57,6 +73,15 @@ def signup_view(request):
         role_name = form.cleaned_data["role"]
         group, _ = Group.objects.get_or_create(name=role_name)
         user.groups.add(group)
+
+        if role_name == "Doctor":
+            Doctor.objects.create(
+                first_name=user.first_name,
+                last_name=user.last_name,
+                specialization="General Medicine",
+                phone="Pending",
+                email=user.email,
+            )
 
         auth_login(request, user)
         messages.success(request, "Signup successful. Your account is ready.")
@@ -99,15 +124,13 @@ def search(request):
     return render(request, "core/search_results.html", {"query": query, "patients": patients})
 
 
-@login_required
-@user_passes_test(_is_reception_or_admin)
+@role_required(_is_reception_or_admin)
 def patient_list(request):
     patients = Patient.objects.all()
     return render(request, "core/patient_list.html", {"patients": patients})
 
 
-@login_required
-@user_passes_test(_is_reception_or_admin)
+@role_required(_is_reception_or_admin)
 def patient_create(request):
     form = PatientForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
@@ -129,15 +152,13 @@ def patient_detail(request, pk):
     )
 
 
-@login_required
-@user_passes_test(_is_admin_or_super)
+@role_required(_is_admin_or_super)
 def doctor_list(request):
     doctors = Doctor.objects.all()
     return render(request, "core/doctor_list.html", {"doctors": doctors})
 
 
-@login_required
-@user_passes_test(_is_admin_or_super)
+@role_required(_is_admin_or_super)
 def doctor_create(request):
     form = DoctorForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
@@ -147,15 +168,13 @@ def doctor_create(request):
     return render(request, "core/form_page.html", {"title": "Register Doctor", "form": form})
 
 
-@login_required
-@user_passes_test(_is_reception_or_admin)
+@role_required(_is_reception_or_admin)
 def visit_list(request):
     visits = Visit.objects.select_related("patient", "doctor")
     return render(request, "core/visit_list.html", {"visits": visits})
 
 
-@login_required
-@user_passes_test(_is_reception_or_admin)
+@role_required(_is_reception_or_admin)
 def visit_create(request):
     initial = {}
     patient_id = request.GET.get("patient")
@@ -177,8 +196,7 @@ def visit_detail(request, pk):
     return render(request, "core/visit_detail.html", {"visit": visit})
 
 
-@login_required
-@user_passes_test(_is_doctor_or_admin)
+@role_required(_is_doctor_or_admin)
 def prescription_create(request):
     initial = {}
     visit_id = request.GET.get("visit")
@@ -192,8 +210,7 @@ def prescription_create(request):
     return render(request, "core/form_page.html", {"title": "Add Prescription", "form": form})
 
 
-@login_required
-@user_passes_test(_is_doctor_or_admin)
+@role_required(_is_doctor_or_admin)
 def procedure_create(request):
     initial = {}
     visit_id = request.GET.get("visit")
@@ -207,15 +224,13 @@ def procedure_create(request):
     return render(request, "core/form_page.html", {"title": "Add Procedure", "form": form})
 
 
-@login_required
-@user_passes_test(_is_reception_or_admin)
+@role_required(_is_reception_or_admin)
 def payment_list(request):
     payments = Payment.objects.select_related("patient", "visit")
     return render(request, "core/payment_list.html", {"payments": payments})
 
 
-@login_required
-@user_passes_test(_is_reception_or_admin)
+@role_required(_is_reception_or_admin)
 def payment_create(request):
     form = PaymentForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
