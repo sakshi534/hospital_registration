@@ -42,7 +42,12 @@ Open: `http://127.0.0.1:8000/`
 
 ## 3) Main pages
 
-- Dashboard: `/`
+- Public Home: `/`
+- About: `/about/`
+- Services: `/services/`
+- Members: `/members/`
+- Contact: `/contact/`
+- Dashboard: `/dashboard/`
 - Search: `/search/`
 - Patients: `/patients/`
 - Doctors: `/doctors/`

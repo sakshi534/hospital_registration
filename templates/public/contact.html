@@ -1,0 +1,25 @@
+{% extends "public_base.html" %}
+
+{% block title %}Contact | Hospital Registration{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Contact Information</h2>
+    <p class="muted">Use the details below to contact our hospital support and front desk teams.</p>
+    <ul class="plain-list">
+        <li><strong>Reception:</strong> +91-98765-43210</li>
+        <li><strong>Email:</strong> support@hospitalregistration.example</li>
+        <li><strong>Address:</strong> 123 Healthcare Avenue, City Center</li>
+        <li><strong>Working Hours:</strong> Mon-Sat, 8:00 AM to 8:00 PM</li>
+    </ul>
+</section>
+
+<section class="card">
+    <h3>Registration Help</h3>
+    <p class="muted">For new hospital staff onboarding, please create your account and then contact admin for role confirmation if needed.</p>
+    <div class="actions-row">
+        <a class="btn" href="{% url 'signup' %}">Register Staff</a>
+        <a class="btn btn-light" href="{% url 'login' %}">Staff Login</a>
+    </div>
+</section>
+{% endblock %}

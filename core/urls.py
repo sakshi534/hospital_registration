@@ -2,10 +2,14 @@ from django.urls import path
 
 from .views import (
     UserLoginView,
+    about,
+    contact,
     dashboard,
     doctor_create,
     doctor_list,
+    home,
     logout_view,
+    members,
     patient_create,
     patient_detail,
     patient_list,
@@ -13,6 +17,7 @@ from .views import (
     payment_list,
     prescription_create,
     procedure_create,
+    services,
     search,
     signup_view,
     health_check,
@@ -23,7 +28,12 @@ from .views import (
 
 urlpatterns = [
     path("health/", health_check, name="health_check"),
-    path("", dashboard, name="dashboard"),
+    path("", home, name="home"),
+    path("about/", about, name="about"),
+    path("services/", services, name="services"),
+    path("members/", members, name="members"),
+    path("contact/", contact, name="contact"),
+    path("dashboard/", dashboard, name="dashboard"),
     path("login/", UserLoginView.as_view(), name="login"),
     path("signup/", signup_view, name="signup"),
     path("logout/", logout_view, name="logout"),

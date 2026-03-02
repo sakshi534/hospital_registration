@@ -96,6 +96,12 @@ a {
   gap: 12px;
 }
 
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
 .stat h3 {
   margin: 0;
   font-size: 28px;
@@ -119,6 +125,25 @@ a {
 .btn-small {
   padding: 7px 10px;
   font-size: 14px;
+}
+
+.btn-light {
+  background: #fff;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.hero {
+  background: linear-gradient(120deg, #f0f7ff 0%, #ffffff 100%);
+}
+
+.plain-list {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.plain-list li {
+  margin-bottom: 8px;
 }
 
 .muted {
@@ -189,7 +214,8 @@ td {
 
 @media (max-width: 900px) {
   .grid-4,
-  .grid-2 {
+  .grid-2,
+  .grid-3 {
     grid-template-columns: 1fr;
   }
 }

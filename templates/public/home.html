@@ -1,0 +1,48 @@
+{% extends "public_base.html" %}
+
+{% block title %}Welcome | Hospital Registration{% endblock %}
+
+{% block content %}
+<section class="hero card">
+    <h2>Compassionate Care, Digitally Connected</h2>
+    <p class="muted">
+        Welcome to our hospital portal. Access registration, care coordination, and clinical workflows through a simple and reliable system.
+    </p>
+    <div class="actions-row">
+        <a class="btn" href="{% url 'signup' %}">Register Staff Account</a>
+        <a class="btn btn-light" href="{% url 'login' %}">Staff Login</a>
+        <a class="btn btn-light" href="{% url 'contact' %}">Contact Hospital</a>
+    </div>
+</section>
+
+<section class="grid-3">
+    <div class="card">
+        <h3>Patient Registration</h3>
+        <p class="muted">Register and manage patient records with structured visit history and search support.</p>
+    </div>
+    <div class="card">
+        <h3>Doctor & Visit Workflows</h3>
+        <p class="muted">Maintain doctor profiles and track consultations, prescriptions, and procedures.</p>
+    </div>
+    <div class="card">
+        <h3>Billing & Payments</h3>
+        <p class="muted">Record and monitor payment status with role-based controls for reception workflows.</p>
+    </div>
+</section>
+
+<section class="card">
+    <h3>Featured Doctors</h3>
+    {% if featured_doctors %}
+        <ul class="plain-list">
+            {% for doctor in featured_doctors %}
+                <li>
+                    <strong>Dr. {{ doctor.first_name }} {{ doctor.last_name }}</strong>
+                    <span class="muted"> — {{ doctor.specialization }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="muted">Doctor profiles will appear here as they are registered.</p>
+    {% endif %}
+</section>
+{% endblock %}

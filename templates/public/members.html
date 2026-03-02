@@ -1,0 +1,35 @@
+{% extends "public_base.html" %}
+
+{% block title %}Members | Hospital Registration{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Our Members</h2>
+    <p class="muted">Clinical members currently available in our hospital system.</p>
+</section>
+
+<section class="card">
+    {% if doctors %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Specialization</th>
+                    <th>Contact</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doctor in doctors %}
+                    <tr>
+                        <td>Dr. {{ doctor.first_name }} {{ doctor.last_name }}</td>
+                        <td>{{ doctor.specialization }}</td>
+                        <td>{{ doctor.phone }}{% if doctor.email %} | {{ doctor.email }}{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p class="muted">No doctor profiles published yet.</p>
+    {% endif %}
+</section>
+{% endblock %}

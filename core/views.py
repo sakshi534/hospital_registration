@@ -64,6 +64,31 @@ class UserLoginView(LoginView):
     template_name = "registration/login.html"
 
 
+def home(request):
+    featured_doctors = Doctor.objects.all()[:6]
+    context = {
+        "featured_doctors": featured_doctors,
+    }
+    return render(request, "public/home.html", context)
+
+
+def about(request):
+    return render(request, "public/about.html")
+
+
+def services(request):
+    return render(request, "public/services.html")
+
+
+def members(request):
+    doctors = Doctor.objects.all()
+    return render(request, "public/members.html", {"doctors": doctors})
+
+
+def contact(request):
+    return render(request, "public/contact.html")
+
+
 def health_check(request):
     return JsonResponse({"status": "ok"})
 

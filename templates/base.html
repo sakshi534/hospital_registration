@@ -10,7 +10,11 @@
 <body>
     <header class="topbar">
         <div class="container topbar-inner">
-            <h1><a href="{% url 'dashboard' %}">Hospital Registration</a></h1>
+            <h1>
+                <a href="{% if user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'home' %}{% endif %}">
+                    Hospital Registration
+                </a>
+            </h1>
             {% if user.is_authenticated %}
                 <div class="topbar-actions">
                     <span class="muted">Logged in as {{ user.username }}</span>
