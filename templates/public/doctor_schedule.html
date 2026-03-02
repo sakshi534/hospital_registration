@@ -1,0 +1,24 @@
+{% extends "public_base.html" %}
+
+{% block title %}Doctor Schedule | Hospital Registration{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Doctor Schedule & Visit Workflows</h2>
+    <p class="muted">Use this schedule to plan appointments and follow-up visits. Final timing may vary based on emergency care load.</p>
+</section>
+
+<section class="card">
+    <table>
+        <thead>
+            <tr><th>Department</th><th>Days</th><th>Time</th><th>Recommended For</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>General Ophthalmology</td><td>Mon-Sat</td><td>9:00 AM - 1:00 PM</td><td>Routine eye check-up, redness, watering, vision issues</td></tr>
+            <tr><td>Cataract Clinic</td><td>Mon, Wed, Fri</td><td>2:00 PM - 5:00 PM</td><td>Cataract evaluation and surgery counseling</td></tr>
+            <tr><td>Glaucoma Clinic</td><td>Tue, Thu</td><td>11:00 AM - 3:00 PM</td><td>IOP checks, long-term glaucoma management</td></tr>
+            <tr><td>Retina / Diabetic Eye</td><td>Sat</td><td>10:00 AM - 2:00 PM</td><td>Diabetic retinopathy and retina referrals</td></tr>
+        </tbody>
+    </table>
+</section>
+{% endblock %}

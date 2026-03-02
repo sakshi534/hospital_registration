@@ -16,55 +16,28 @@
                 <a class="btn btn-light" href="{% url 'contact' %}">Contact Hospital</a>
             </div>
         </div>
-        <img class="hero-image" src="https://images.pexels.com/photos/5752283/pexels-photo-5752283.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Eye examination in hospital" />
+        <img class="hero-image" src="https://images.pexels.com/photos/8942870/pexels-photo-8942870.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Indian eye care consultation" />
     </div>
 </section>
 
 <section class="grid-3">
     <div class="card">
-        <img class="section-image" src="https://images.pexels.com/photos/7089401/pexels-photo-7089401.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Eye patient consultation" />
+        <img class="section-image" src="https://images.pexels.com/photos/8460379/pexels-photo-8460379.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Indian patient eye consultation" />
         <h3>Eye Consultation & Registration</h3>
         <p class="muted">Register and manage eye-care patient records with diagnosis history, prescriptions, and follow-up support.</p>
+        <p><a href="{% url 'appointment_create' %}">Book an eye appointment</a></p>
     </div>
     <div class="card">
-        <img class="section-image" src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Eye doctor and patient" />
+        <img class="section-image" src="https://images.pexels.com/photos/8460157/pexels-photo-8460157.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Indian eye doctor workflow" />
         <h3>Doctor Schedule & Visit Workflows</h3>
         <p class="muted">Maintain doctor schedules and track consultations, prescriptions, procedures, and post-visit instructions.</p>
+        <p><a href="{% url 'doctor_schedule' %}">View doctor schedule</a></p>
     </div>
     <div class="card">
-        <img class="section-image" src="https://images.pexels.com/photos/8376159/pexels-photo-8376159.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Pharmacy support" />
+        <img class="section-image" src="https://images.pexels.com/photos/8460041/pexels-photo-8460041.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Indian pharmacy and eye medicine guidance" />
         <h3>Pharmacy & Eye-Care Guidance</h3>
         <p class="muted">Get pharmacy support, medicine instructions, and eye-care precautions before and after procedures.</p>
-    </div>
-</section>
-
-<section class="grid-2">
-    <div class="card">
-        <h3>Doctor Schedule (Sample Weekly Timings)</h3>
-        <table>
-            <thead>
-                <tr><th>Department</th><th>Days</th><th>Time</th></tr>
-            </thead>
-            <tbody>
-                <tr><td>General Ophthalmology</td><td>Mon-Sat</td><td>9:00 AM - 1:00 PM</td></tr>
-                <tr><td>Cataract Clinic</td><td>Mon, Wed, Fri</td><td>2:00 PM - 5:00 PM</td></tr>
-                <tr><td>Glaucoma Clinic</td><td>Tue, Thu</td><td>11:00 AM - 3:00 PM</td></tr>
-                <tr><td>Retina / Diabetic Eye</td><td>Sat</td><td>10:00 AM - 2:00 PM</td></tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="card">
-        <h3>Pharmacy & Patient Precautions</h3>
-        <p class="muted"><strong>Pharmacy hours:</strong> Daily 8:00 AM - 8:00 PM</p>
-        <ul class="plain-list">
-            <li>Bring previous prescriptions and eye reports for every visit.</li>
-            <li>Avoid rubbing eyes after procedures or injections.</li>
-            <li>Use prescribed eye drops at exact intervals.</li>
-            <li>Wear protective sunglasses in sunlight and dusty conditions.</li>
-            <li>Do not self-medicate steroid drops without doctor advice.</li>
-            <li>Report redness, pain, watering, or sudden vision blur immediately.</li>
-        </ul>
+        <p><a href="{% url 'pharmacy_guidance' %}">Read pharmacy and precaution guidance</a></p>
     </div>
 </section>
 

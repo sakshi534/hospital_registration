@@ -1,0 +1,18 @@
+{% extends "public_base.html" %}
+
+{% block title %}Eye Appointment Registration | Hospital Registration{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Eye Consultation & Appointment Registration</h2>
+    <p class="muted">Fill this form to register and book an eye consultation. Submitted appointments will appear in the hospital dashboard under patient and visit records.</p>
+</section>
+
+<section class="card">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn" type="submit">Submit Appointment</button>
+    </form>
+</section>
+{% endblock %}

@@ -137,3 +137,21 @@ class SignupForm(UserCreationForm):
             "password1",
             "password2",
         )
+
+
+class PublicAppointmentForm(forms.Form):
+    first_name = forms.CharField(max_length=100)
+    last_name = forms.CharField(max_length=100)
+    date_of_birth = forms.DateField(required=False, widget=DateInput())
+    gender = forms.ChoiceField(
+        choices=[("", "Select"), *Patient.GENDER_CHOICES], required=False
+    )
+    phone = forms.CharField(max_length=20)
+    email = forms.EmailField(required=False)
+    address = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 2}))
+    emergency_contact = forms.CharField(max_length=20, required=False)
+
+    doctor = forms.ModelChoiceField(queryset=Doctor.objects.all())
+    visit_date = forms.DateField(widget=DateInput())
+    reason = forms.CharField(max_length=255)
+    notes = forms.CharField(required=False, widget=forms.Textarea(attrs={"rows": 3}))

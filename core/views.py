@@ -14,6 +14,7 @@ from .forms import (
     DoctorForm,
     PatientForm,
     PaymentForm,
+    PublicAppointmentForm,
     SignupForm,
     PrescriptionForm,
     ProcedureForm,
@@ -87,6 +88,56 @@ def members(request):
 
 def contact(request):
     return render(request, "public/contact.html")
+
+
+def doctor_schedule(request):
+    return render(request, "public/doctor_schedule.html")
+
+
+def pharmacy_guidance(request):
+    return render(request, "public/pharmacy_guidance.html")
+
+
+def appointment_create(request):
+    form = PublicAppointmentForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        phone = form.cleaned_data["phone"].strip()
+        first_name = form.cleaned_data["first_name"].strip()
+        last_name = form.cleaned_data["last_name"].strip()
+
+        patient = Patient.objects.filter(
+            phone=phone,
+            first_name__iexact=first_name,
+            last_name__iexact=last_name,
+        ).first()
+
+        if not patient:
+            patient = Patient.objects.create(
+                first_name=first_name,
+                last_name=last_name,
+                date_of_birth=form.cleaned_data.get("date_of_birth"),
+                gender=form.cleaned_data.get("gender") or "",
+                phone=phone,
+                email=form.cleaned_data.get("email") or "",
+                address=form.cleaned_data.get("address") or "",
+                emergency_contact=form.cleaned_data.get("emergency_contact") or "",
+            )
+
+        visit = Visit.objects.create(
+            patient=patient,
+            doctor=form.cleaned_data["doctor"],
+            visit_date=form.cleaned_data["visit_date"],
+            reason=form.cleaned_data["reason"],
+            notes=(form.cleaned_data.get("notes") or "") + "\n\n[Booked via public appointment form]",
+        )
+
+        messages.success(
+            request,
+            f"Appointment submitted successfully for {patient.first_name} {patient.last_name}. Visit reference #{visit.id}.",
+        )
+        return redirect("appointment_create")
+
+    return render(request, "public/appointment_form.html", {"form": form})
 
 
 def health_check(request):
