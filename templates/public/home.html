@@ -23,7 +23,7 @@
 
 <section class="grid-3">
     <div class="card">
-        <img class="section-image" src="https://source.unsplash.com/1200x800/?india,village,clinic,patients" alt="Rural patients registering at eye clinic" />
+        <img class="section-image" src="{% static 'images/eye-consultation-registration.png' %}" alt="Eye consultation and patient registration" />
         <h3>Eye Consultation & Registration</h3>
         <p class="muted">Register and manage eye-care patient records with diagnosis history, prescriptions, and follow-up support.</p>
         <p><a href="{% url 'appointment_create' %}">Book an eye appointment</a></p>
@@ -35,7 +35,7 @@
         <p><a href="{% url 'doctor_schedule' %}">View doctor schedule</a></p>
     </div>
     <div class="card">
-        <img class="section-image" src="https://images.pexels.com/photos/8460041/pexels-photo-8460041.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Indian pharmacy and eye medicine guidance" />
+        <img class="section-image" src="{% static 'images/pharmacy-eye-care-guidance.png' %}" alt="Pharmacy and eye-care guidance" />
         <h3>Pharmacy & Eye-Care Guidance</h3>
         <p class="muted">Get pharmacy support, medicine instructions, and eye-care precautions before and after procedures.</p>
         <p><a href="{% url 'pharmacy_guidance' %}">Read pharmacy and precaution guidance</a></p>
