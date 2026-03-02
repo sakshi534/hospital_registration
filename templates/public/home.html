@@ -1,4 +1,5 @@
 {% extends "public_base.html" %}
+{% load static %}
 
 {% block title %}Welcome | Hospital Registration{% endblock %}
 
@@ -16,7 +17,7 @@
                 <a class="btn btn-light" href="{% url 'contact' %}">Contact Hospital</a>
             </div>
         </div>
-        <img class="hero-image" src="https://source.unsplash.com/1200x800/?india,village,hospital,patients" alt="Village community visiting eye hospital" />
+        <img class="hero-image" src="{% static 'images/home-hero.png' %}" alt="Hospital eye-care services" />
     </div>
 </section>
 
