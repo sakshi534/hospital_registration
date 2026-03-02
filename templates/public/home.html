@@ -4,27 +4,35 @@
 
 {% block content %}
 <section class="hero card">
-    <h2>Compassionate Care, Digitally Connected</h2>
-    <p class="muted">
-        Welcome to our hospital portal. Access registration, care coordination, and clinical workflows through a simple and reliable system.
-    </p>
-    <div class="actions-row">
-        <a class="btn" href="{% url 'signup' %}">Register Staff Account</a>
-        <a class="btn btn-light" href="{% url 'login' %}">Staff Login</a>
-        <a class="btn btn-light" href="{% url 'contact' %}">Contact Hospital</a>
+    <div class="hero-grid">
+        <div>
+            <h2>Compassionate Care, Digitally Connected</h2>
+            <p class="muted">
+                Welcome to our hospital portal. Access registration, care coordination, and clinical workflows through a simple and reliable system.
+            </p>
+            <div class="actions-row">
+                <a class="btn" href="{% url 'signup' %}">Register Staff Account</a>
+                <a class="btn btn-light" href="{% url 'login' %}">Staff Login</a>
+                <a class="btn btn-light" href="{% url 'contact' %}">Contact Hospital</a>
+            </div>
+        </div>
+        <img class="hero-image" src="https://images.pexels.com/photos/263402/pexels-photo-263402.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Modern hospital building" />
     </div>
 </section>
 
 <section class="grid-3">
     <div class="card">
+        <img class="section-image" src="https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Patient registration desk" />
         <h3>Patient Registration</h3>
         <p class="muted">Register and manage patient records with structured visit history and search support.</p>
     </div>
     <div class="card">
+        <img class="section-image" src="https://images.pexels.com/photos/1170979/pexels-photo-1170979.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Doctor team discussion" />
         <h3>Doctor & Visit Workflows</h3>
         <p class="muted">Maintain doctor profiles and track consultations, prescriptions, and procedures.</p>
     </div>
     <div class="card">
+        <img class="section-image" src="https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Digital billing and payment" />
         <h3>Billing & Payments</h3>
         <p class="muted">Record and monitor payment status with role-based controls for reception workflows.</p>
     </div>
