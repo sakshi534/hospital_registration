@@ -27,6 +27,7 @@
     {% if user.is_authenticated %}
         <nav class="nav">
             <div class="container nav-links">
+                <a href="{% url 'home' %}">Home</a>
                 <a href="{% url 'dashboard' %}">Dashboard</a>
                 {% if is_non_payment_staff_user %}
                     <a href="{% url 'patient_list' %}">Patients</a>

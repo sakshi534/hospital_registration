@@ -10,6 +10,7 @@
     <div class="card stat"><h3>{{ doctor_count }}</h3><p>Doctors</p></div>
     <div class="card stat"><h3>{{ visit_count }}</h3><p>Visits</p></div>
     <div class="card stat"><h3>{{ payment_count }}</h3><p>Payments</p></div>
+    <div class="card stat"><h3>{{ appointment_count }}</h3><p>Appointments</p></div>
 </div>
 
 <div class="actions-row">
@@ -17,6 +18,7 @@
     <a href="{% url 'doctor_create' %}" class="btn">+ Register Doctor</a>
     <a href="{% url 'visit_create' %}" class="btn">+ Record Visit</a>
     <a href="{% url 'payment_create' %}" class="btn">+ Record Payment</a>
+    <a href="{% url 'appointment_create' %}" class="btn btn-light">+ New Appointment</a>
 </div>
 
 <div class="grid-2">
@@ -52,6 +54,25 @@
                 </tr>
             {% empty %}
                 <tr><td colspan="4">No payments yet.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h3>Recent Appointments</h3>
+        <table>
+            <thead><tr><th>Date</th><th>Patient</th><th>Doctor</th><th></th></tr></thead>
+            <tbody>
+            {% for visit in recent_appointments %}
+                <tr>
+                    <td>{{ visit.visit_date }}</td>
+                    <td>{{ visit.patient.first_name }} {{ visit.patient.last_name }}</td>
+                    <td>{{ visit.doctor.first_name }} {{ visit.doctor.last_name }}</td>
+                    <td><a href="{% url 'visit_detail' visit.pk %}">View</a></td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="4">No appointments yet.</td></tr>
             {% endfor %}
             </tbody>
         </table>

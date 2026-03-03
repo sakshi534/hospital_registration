@@ -181,13 +181,18 @@ def logout_view(request):
 
 @login_required
 def dashboard(request):
+    appointment_visits = Visit.objects.filter(
+        notes__icontains="[Booked via public appointment form]"
+    )
     context = {
         "patient_count": Patient.objects.count(),
         "doctor_count": Doctor.objects.count(),
         "visit_count": Visit.objects.count(),
         "payment_count": Payment.objects.count(),
+        "appointment_count": appointment_visits.count(),
         "recent_visits": Visit.objects.select_related("patient", "doctor")[:5],
         "recent_payments": Payment.objects.select_related("patient")[:5],
+        "recent_appointments": appointment_visits.select_related("patient", "doctor")[:5],
     }
     return render(request, "core/dashboard.html", context)
 
